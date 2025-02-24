@@ -5,11 +5,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
-    <title>Document</title>
+    <link rel="icon" href="./img/svg/Frame.svg">
+    <script src="https://kit.fontawesome.com/109388adc7.js" crossorigin="anonymous"></script>
+    <title>Главная</title>
 </head>
 
-<body>
-    <h1>Главная</h1>
+<style>
+    @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,regular,500,600,700,800,300italic,italic,500italic,600italic,700italic,800italic);
+
+    * {
+        font-family: 'Open-Sans' sans-serif;
+    }
+</style>
+
+<body class="bg-black text-white">
+    <div class="container flex items-start p-14 gap-4">
+        <header class="header basis-[20%] p-2 flex flex-col gap-5">
+            <div class="logo mb-4">
+                <img class="w-14" src="./img/svg/Frame.svg" alt="">
+            </div>
+            <nav>
+                <ul class="flex flex-col gap-3">
+                    <li class="flex items-center gap-3">
+                        <i class="fa-solid fa-house text-2xl"></i>
+                        <span class="font-bold text-xl">Главная</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i class="fa-solid fa-envelope text-2xl"></i>
+                        <span class="font-bold text-xl">Сообщения</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i class="fa-solid fa-bell text-2xl"></i>
+                        <span class="font-bold text-xl">Уведомления</span>
+                    </li>
+
+                </ul>
+            </nav>
+            <div class="btn-post flex items-center justify-center">
+                <button class="bg-white text-black px-5 py-2 rounded-full w-[100%]">POST</button>
+            </div>
+            <div class="profile">
+                <p>Serikbolsyn</p>
+                <p>adzhan.serik@gmail.com</p>
+            </div>
+        </header>
+        <section class="main border border-white basis-[80%] p-2">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum ullam ab amet illum neque veniam
+                officiis, aspernatur cupiditate nam omnis minus itaque sunt sint ut voluptatibus hic totam enim id.</p>
+        </section>
+    </div>
+
 </body>
 
 </html>
