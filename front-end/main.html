@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth/reg page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./front.js" defer></script>
+</head>
+
+<body class="bg-black">
+    <section>
+        <div class="flex items-center justify-center h-screen">
+            <div><img class="w-[70%]" src="./img/x-logo.jpg" alt=""></div>
+            <div class="flex flex-col gap-7">
+                <p class="text-[85px] font-bold text-white">В курсе <br> происходящего</p>
+                <p class="text-[40px] font-bold text-white">Присоединяйтесь сегодня.</p>
+                <button class="cursor-pointer bg-white p-3 hover:bg-sky-700 ease-in duration-300 items-center gap-3 text-black rounded-full w-[400px] login">Войти</button>
+                <button class="cursor-pointer bg-blue-500 p-3 hover:bg-sky-700 ease-in duration-300 items-center gap-3 text-white rounded-full w-[400px] register">Заригестрироваться</button>
+            </div>
+            <div class="p-5 w-[35%] blackdrop-blur-md registerModal rounded-3xl bg-black/90 opacity-0 transition-opacity border-white border-2 absolute hidden">
+                <div class="flex justify-between items-center">
+                    <img class=" w-[10%]" src="./img/x-logo.jpg" alt="">
+                    <span class="text-white text-3xl">Регистрация</span>
+                    <img class="flex w-[11%] p-5 close" src="./img/Cross.svg" alt="">
+                </div>
+                <div class="flex flex-col p-3 gap-3">
+                    <input class="px-4 py-4 rounded-3xl mb-3 text-xl border firstName placeholder:pl-1" type="text" required placeholder="Имя">
+                    <input class="px-4 py-4 rounded-3xl mb-3 text-xl border gmail placeholder:pl-1" type="email" required placeholder="Почта">
+                    <input class="px-4 py-4 rounded-3xl mb-3 text-xl border password placeholder:pl-1" type="password" required placeholder="Пароль">
+                </div>
+                <div class="flex justify-center">
+                    <button
+                        class="cursor-pointer flex justify-center px-4 hover:bg-sky-700 ease-in duration-300 py-4 rounded-3xl bg-blue-500 text-white text-2xl regButton">Зарегистрироваться</button>
+                </div>
+            </div>
+            <div class="p-5 w-[35%] blackdrop-blur-md loginModal rounded-3xl bg-black/90 opacity-0 transition-opacity border-white border-2 absolute hidden">
+                <div class="flex justify-between items-center">
+                    <img class=" w-[10%]" src="./img/x-logo.jpg" alt="">
+                    <span class="text-white text-3xl">Авторизация</span>
+                    <img class="flex w-[11%] p-5 closeLogin" src="./img/Cross.svg" alt="">
+                </div>
+                <div class="flex flex-col p-3 gap-3">
+                    <input class="px-4 py-4 rounded-3xl mb-3 text-xl border loginGmail placeholder:pl-1" type="email" required placeholder="Почта">
+                    <input class="px-4 py-4 rounded-3xl mb-3 text-xl border loginPassword placeholder:pl-1" type="password" required placeholder="Пароль">
+                </div>
+                <div class="flex justify-center">
+                    <button
+                        class="cursor-pointer flex justify-center px-4 hover:bg-sky-700 w-[300px] ease-in duration-300 py-4 rounded-3xl bg-blue-500 text-white text-2xl loginButton">Войти</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

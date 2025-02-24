@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./front.js" defer></script>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link rel="icon" href="./img/x-logo.jpg">
+    <script src="https://kit.fontawesome.com/109388adc7.js" crossorigin="anonymous"></script>
+    <title>X</title>
+</head>
+
+<style>
+    @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,regular,500,600,700,800,300italic,italic,500italic,600italic,700italic,800italic);
+
+    * {
+        font-family: 'Open-Sans' sans-serif;
+    }
+</style>
+
+<body class="bg-black text-white">
+    <div class="container p-14 gap-6">
+        <div class="header fixed top-15 w-[50%] left-20 z-50 basis-[20%] p-2 flex gap-5">
+            <div class="flex flex-col">
+                <div class="logo mb-4">
+                    <img class="w-14" src="./img/x-logo.jpg" alt="">
+                </div>
+                <nav>
+                    <ul class="flex flex-col gap-3">
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-house text-2xl"></i>
+                            <span class="font-bold text-xl">Главная</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-envelope text-2xl"></i>
+                            <span class="font-bold text-xl">Сообщения</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-bell text-2xl"></i>
+                            <span class="font-bold text-xl">Уведомления</span>
+                        </li>
+
+                    </ul>
+                </nav>
+                <div class="btn-post flex items-center justify-center">
+                    <button class="bg-white text-black px-5 py-2 rounded-full w-[100%]">POST</button>
+                </div>
+                <div class="profile">
+                    <p>Dimash</p>
+                    <p>shage.dimash@gmail.com</p>
+                </div>
+            </div>
+            <div class="text-3xl font-bold mb-5 gap-3">
+                <i class="fa-solid fa-newspaper text-slate-400"></i>Лента новостей
+            </div>
+        </div   >
+        <section class="main fixed top-20 left-90 right-40 h-[calc(100vh-80px)] overflow-y-auto p-2">
+
+            <div class="border-slate-600 border">
+                <div class="lenta-user flex items-start gap-4 mt-[20px] px-6 py-4">
+                    <i class="fa-solid fa-user-tie text-5xl"></i>
+                    <div class="profile flex items-left flex-col">
+                        <p class="text-3xl">Dimash</p>
+                        <p class="text-slate-500">запостил</p>
+                    </div>
+                    <i class="fa-solid fa-circle-check text-blue-400 text-3xl"></i>
+                </div>
+                <div class="lenta-body px-6 py-2 flex items-center text-justify text-2xl">
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Excepturi, dolore? Nesciunt fuga harum
+                        inventore corrupti expedita culpa, odit quod non consectetur eveniet cupiditate optio placeat
+                        numquam
+                        cum porro doloribus, dignissimos et quam labore deserunt, consequuntur qui aliquid facere! In
+                        totam
+                        tempora fuga, voluptates placeat vero excepturi non consequatur beatae molestiae deserunt
+                        obcaecati
+                        doloremque saepe. Ut libero iusto impedit fugiat sed eaque doloremque. Fugiat, placeat aliquam
+                        fugit
+                        error dicta cum. Sint numquam voluptas similique sit eius neque fugit dolores laudantium
+                        temporibus
+                        corrupti deleniti doloribus veniam provident eaque, atque dolorem nulla possimus quos,
+                        architecto
+                        laborum, quae repellendus. Iure eligendi expedita mollitia neque esse, voluptatum autem
+                        repellendus est
+                        modi rerum earum voluptatibus eveniet sunt magni ducimus ut eius, facere doloremque corporis
+                        numquam,
+                        consequuntur obcaecati pariatur? Odit consequatur deserunt, voluptates illum possimus iusto est
+                        quis
+                        pariatur fugiat, facere, neque amet exercitationem in laudantium tempora similique. Beatae
+                        laborum
+                        perferendis, consequatur eius omnis autem porro. Saepe fuga possimus, minus laboriosam quae
+                        consequuntur, architecto sint velit eveniet libero repellendus soluta voluptate nam natus enim!
+                        Cupiditate illo, perferendis est, facere accusamus, aliquam distinctio cumque illum temporibus
+                        necessitatibus laboriosam aliquid delectus aut nisi expedita soluta nesciunt eveniet modi.
+                        Soluta quia
+                        cum quo optio eius repellat. Perferendis eum doloribus recusandae.</p>
+                </div>
+                <div class="users-stats flex text-xl items-center gap-2 p-5">
+                    <i class="fa-solid fa-heart text-red-600"></i>1000
+                    <i class="fa-solid fa-comment"></i>200
+                    <div class="flex items-end gap-2">
+                        <i class="fa-solid fa-bookmark text-yellow-500"></i>
+                    </div>
+                </div>
+                <div class="users-comment flex items-center p-5 gap-3">
+                    <input class="bg-white text-black w-[100%] placeholder:pl-1 p-3 rounded-full" type="text"
+                        placeholder="Комментарии..." name="" id="">
+                    <button
+                        class="hover:bg-gray-300 ease-in duration-300 cursor-pointer bg-white text-black rounded-full">Оставить
+                        комментарии</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+</body>
+
+</html>
