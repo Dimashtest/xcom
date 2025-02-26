@@ -28,7 +28,8 @@ const Posts = sequelize.define("Posts", {
     tableName: "posts"
 });
 
-// Связываем пост с пользователем (один пост принадлежит одному пользователю)
+Posts.belongsTo(User, { foreignKey: "user_id", as: "users" });
+// User.hasMany(Posts, { foreignKey: "user_id", as: "posts" });
 
 
 module.exports = Posts;
