@@ -5,7 +5,7 @@ const User = require("../models/usersModel");
 const getAllPosts = async (req, res) => {
     try {
         const posts = await Posts.findAll({
-            include: [{ model: User, as: "users", attributes: ["first_name", "email"] }],
+            include: [{ model: User, as: "users", attributes: ["id", "first_name", "email"] }],
         });
         res.json(posts);
     } catch (error) {

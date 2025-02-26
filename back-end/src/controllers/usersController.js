@@ -23,7 +23,6 @@ const loginUser = async (req, res) => {
         if (user.password !== password) {
             return res.status(401).json({ message: 'Invalid password' });
         }
-
         res.json({ message: 'Login successful', user });
     } catch (error) {
         res.status(500).json({ error: error.message });

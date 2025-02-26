@@ -50,7 +50,7 @@ closeBtn.forEach(item => {
 
 async function register(first_name, email, password) {
   console.log(email, first_name, password)
-  const fetchs = await fetch('http://localhost:4000/api/userRoutes/users', {
+  const fetchs = await fetch('http://localhost:5000/api/userRoutes/users', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -70,7 +70,7 @@ async function register(first_name, email, password) {
 
 async function login(email, password) {
   console.log(email, password)
-  const fetchs = await fetch('http://localhost:4000/api/userRoutes/loginUser', {
+  const fetchs = await fetch('http://localhost:5000/api/userRoutes/loginUser', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -82,7 +82,9 @@ async function login(email, password) {
   })
   const data = await fetchs.json()
   console.log(data)
-  await ads2.classList.remove("active");
+  ads2.classList.remove("active");
+  localStorage.setItem('user_id', data.user.id)
+  localStorage.setItem('name_user', data.user.first_name)
   if (fetchs.ok) {
     window.location.href = './main.html'
   }

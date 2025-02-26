@@ -29,7 +29,7 @@ const Posts = sequelize.define("Posts", {
 });
 
 Posts.belongsTo(User, { foreignKey: "user_id", as: "users" });
-// User.hasMany(Posts, { foreignKey: "user_id", as: "posts" });
+User.hasMany(Posts, { foreignKey: "user_id", as: "posts" });
 
 
 module.exports = Posts;

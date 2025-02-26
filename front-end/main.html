@@ -7,6 +7,7 @@
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <link rel="icon" href="./img/svg/Frame.svg">
     <script src="https://kit.fontawesome.com/109388adc7.js" crossorigin="anonymous"></script>
+    <script src="main.js" defer></script>
     <title>Главная</title>
 </head>
 
@@ -18,7 +19,57 @@
     }
 </style>
 
-<body class="bg-black text-white">
+<body class="bg-black text-white relative h-screen">
+    <div class="
+        modal-post 
+        absolute 
+        top-[50%] 
+        left-[50%] 
+        translate-x-[-50%] 
+        translate-y-[-50%] 
+        bg-white 
+        p-14 
+        text-black 
+        w-[50%] 
+        h-[50%] 
+        rounded-xl 
+        flex 
+        flex-col 
+        items-center 
+        justify-center
+        hidden
+        ">
+        <i class="close-modal fa-solid fa-circle-xmark text-3xl absolute top-4 right-4 cursor-pointer"></i>
+
+        <form class="w-[100%] flex flex-col gap-4 items-center">
+            <div class="w-[80%]">
+                <input class="
+                title
+                w-full 
+                outline-none 
+                border 
+                border-black
+                p-2
+                rounded-xl
+                " type="text" required placeholder="Напишите заголовок">
+            </div>
+            <div class="w-[80%]">
+                <textarea class="
+                text-post
+                w-full 
+                outline-none 
+                border 
+                border-black
+                p-2
+                rounded-xl
+                h-[15vh]
+                " type="text" required placeholder="Напишите содержимое"></textarea>
+            </div>
+            <div>
+                <button type="submit" class="cursor-pointer bg-black text-white p-2 rounded-xl">Опубликовать</button>
+            </div>
+        </form>
+    </div>
     <div class="container flex items-start p-14 gap-4">
         <header class="header basis-[20%] p-2 flex flex-col gap-5">
             <div class="logo mb-4">
@@ -42,7 +93,7 @@
                 </ul>
             </nav>
             <div class="btn-post flex items-center justify-center">
-                <button class="bg-white text-black px-5 py-2 rounded-full w-[100%]">POST</button>
+                <button class="post-btn bg-white text-black px-5 py-2 rounded-full w-[100%]">POST</button>
             </div>
             <div class="profile">
                 <p>Serikbolsyn</p>
@@ -50,6 +101,28 @@
             </div>
         </header>
         <section class="main border border-white basis-[80%] p-2">
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum ullam ab amet illum neque veniam
+                officiis, aspernatur cupiditate nam omnis minus itaque sunt sint ut voluptatibus hic totam enim id.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum ullam ab amet illum neque veniam
+                officiis, aspernatur cupiditate nam omnis minus itaque sunt sint ut voluptatibus hic totam enim id.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum ullam ab amet illum neque veniam
+                officiis, aspernatur cupiditate nam omnis minus itaque sunt sint ut voluptatibus hic totam enim id.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum ullam ab amet illum neque veniam
+                officiis, aspernatur cupiditate nam omnis minus itaque sunt sint ut voluptatibus hic totam enim id.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum ullam ab amet illum neque veniam
+                officiis, aspernatur cupiditate nam omnis minus itaque sunt sint ut voluptatibus hic totam enim id.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum ullam ab amet illum neque veniam
+                officiis, aspernatur cupiditate nam omnis minus itaque sunt sint ut voluptatibus hic totam enim id.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum ullam ab amet illum neque veniam
+                officiis, aspernatur cupiditate nam omnis minus itaque sunt sint ut voluptatibus hic totam enim id.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum ullam ab amet illum neque veniam
+                officiis, aspernatur cupiditate nam omnis minus itaque sunt sint ut voluptatibus hic totam enim id.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum ullam ab amet illum neque veniam
+                officiis, aspernatur cupiditate nam omnis minus itaque sunt sint ut voluptatibus hic totam enim id.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum ullam ab amet illum neque veniam
+                officiis, aspernatur cupiditate nam omnis minus itaque sunt sint ut voluptatibus hic totam enim id.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum ullam ab amet illum neque veniam
+                officiis, aspernatur cupiditate nam omnis minus itaque sunt sint ut voluptatibus hic totam enim id.</p>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum ullam ab amet illum neque veniam
                 officiis, aspernatur cupiditate nam omnis minus itaque sunt sint ut voluptatibus hic totam enim id.</p>
         </section>
