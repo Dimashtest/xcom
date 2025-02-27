@@ -85,6 +85,7 @@ async function login(email, password) {
   ads2.classList.remove("active");
   localStorage.setItem('user_id', data.user.id)
   localStorage.setItem('name_user', data.user.first_name)
+  localStorage.setItem('email_user', data.user.email)
   if (fetchs.ok) {
     window.location.href = './main.html'
   }
