@@ -25,7 +25,10 @@ const Posts = sequelize.define("Posts", {
         allowNull: false,
     },
 }, {
-    tableName: "posts"
+    tableName: "posts",
+    timestamps: true, // Включаем временные метки
+    createdAt: 'createdAt',  // Настроим наименование поля для времени создания
+    updatedAt: 'updatedAt',  // Настроим наименование поля для времени обновления
 });
 
 Posts.belongsTo(User, { foreignKey: "user_id", as: "users" });

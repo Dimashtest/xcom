@@ -8,6 +8,7 @@ document.querySelector(".post-btn").addEventListener("click", () => {
 const postBtn = document.querySelector(".post-btn");
 const modal = document.querySelector(".modal-post");
 const closeBtn = document.querySelector(".close-modal");
+const user_id = localStorage.getItem("user_id")
 document.addEventListener('click', (e) => {
     if (!modal.contains(e.target) && !postBtn.contains(e.target)) {
         modal.classList.add("hidden");
@@ -23,7 +24,6 @@ document.querySelector('form').addEventListener('submit', async (e) => {
     await createPost(user_id, title, text_post);
     modal.classList.add("hidden");
     await renderPosts()
-    await renderProfile()
 })
 
 async function createPost(user_id, title, text_post) {
@@ -54,41 +54,18 @@ async function getAllPosts() {
         console.log(error)
     }
 }
-const userEmail = localStorage.getItem('email_user')
-const nameUser = localStorage.getItem('name_user')
-const renderProfile = () => {
-    if (userEmail && !document.querySelector('.profile-email')) {
-        document.querySelector('.profile').innerHTML = `
-        <p class="profile-email text-xl">${nameUser}</p>    
-        <p class="profile-email text-xl">${userEmail}</p>
-        `;
-    }
-}
-
-renderProfile()
 
 async function renderPosts() {
-    document.querySelector('.main').innerHTML = '';
+    document.querySelector('.main').innerHTML = ''
     const posts = await getAllPosts()
-
     posts.forEach(post => {
-
-        const formattedDate = new Date(post.createdAt).toLocaleString('ru-RU', { 
-            weekday: 'long', 
-            year: 'numeric', 
-            month: 'long', 
-            day: 'numeric', 
-            hour: 'numeric', 
-            minute: 'numeric', 
-            second: 'numeric' 
-        })
         document.querySelector('.main').insertAdjacentHTML('afterbegin', `
             <div class="border-slate-600 border rounded-xl">
                 <div class="lenta-user flex items-start gap-4 mt-[20px] px-6 py-4">
                     <i class="fa-solid fa-user-tie text-5xl"></i>
                     <div class="profile flex items-left flex-col">
                         <p class="text-3xl">${post.users.email}</p>
-                        <p class="text-slate-500">${formattedDate}</p> <!-- Дата поста -->
+                        <p class="text-slate-500">Тут должно быть время</p>
                     </div>
                     <i class="fa-solid fa-circle-check text-blue-400 text-3xl"></i>
                 </div>
@@ -104,15 +81,34 @@ async function renderPosts() {
                     </div>
                 </div>
                 <div class="users-comment flex items-center p-5 gap-3">
-                    <input class="bg-white text-black w-[100%] placeholder:pl-1 p-3 rounded-full" type="text"
+                    <input data-id="${post.post_id}" class="bg-white text-black w-[100%] placeholder:pl-1 p-3 rounded-full" type="text"
                         placeholder="Комментарии..." name="" id="">
                     <button
+                        onClick="createCommentt('${post.post_id}', '${localStorage.getItem('user_id')}')"
                         class="hover:bg-gray-300 ease-in duration-300 cursor-pointer bg-white text-black rounded-full">Оставить
                         коментарии</button>
                 </div>
             </div>
-            
             `)
-    })
+    });
+
+
 }
+
+async function createCommentt(post_id, user_id) {
+    const comment = document.querySelector(`[data-id="${post_id}"]`).value
+    await fetch('http://localhost:5000/api/commentsRoutes/comments', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            user_id,
+            post_id,
+            comment_text: comment
+        })
+    })
+    await renderPosts()
+}
+
 renderPosts()
