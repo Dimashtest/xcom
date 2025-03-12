@@ -4,7 +4,12 @@ const registerUser = async (req, res) => {
     try {
         const { email, first_name, password } = req.body
         console.log(email, password, first_name)
+        const checkUser = await User.findOne({ where: { email } })
+        if (checkUser) {
+            return res.status(404).json({ message: 'User with this email already exists' })
+        }
         const user = await User.create({ email, first_name, password })
+
         res.status(201).json(user)
     } catch (error) {
         res.status(500).json({ error: error.message })
