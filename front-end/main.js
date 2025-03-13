@@ -8,6 +8,18 @@ const favourite_btn = document.querySelector(".favourite-btn")
 
 document.querySelector(".close-modal").addEventListener("click", () => {
     document.querySelector(".modal-post").classList.add("hidden");
+})
+
+let isFavoritesView = false
+
+document.querySelector(".favourite-btn").addEventListener("click", async () => {
+    isFavoritesView = true
+    await renderFavoritePosts()
+});
+
+document.querySelector(".home-btn").addEventListener("click", async () => {
+    await renderAll()
+    isFavoritesView = false
 });
 
 document.querySelector(".post-btn").addEventListener("click", () => {
@@ -27,10 +39,6 @@ document.addEventListener('click', (e) => {
         modal.classList.add("hidden");
     }
 
-});
-
-document.querySelector(".favourite-btn").addEventListener("click", () => {
-    window.location.href = './favourite.html'
 })
 
 document.querySelector('form').addEventListener('submit', async (e) => {
@@ -94,16 +102,22 @@ async function getAllFavourites() {
 }
 
 async function favoutritePost(post_id, user_id) {
+
     const response = await fetch(`http://localhost:5000/api/favouritesRoutes/favourites`, {
         method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ post_id, user_id }),
     })
+
     const result = await response.json()
-    console.log(result)
-    renderPosts()
+    console.log(result);
+
+    if (isFavoritesView) {
+        await renderFavoritePosts()
+    } else {
+        await renderAll()
+    }
+
 }
 
 const renderProfile = () => {
@@ -122,7 +136,7 @@ const renderProfile = () => {
 renderProfile()
 
 async function renderPosts() {
-    
+
     const posts = await getAllPosts();
     const likes = await getAllLikes();
     const favourites = await getAllFavourites()
@@ -135,6 +149,67 @@ async function renderPosts() {
 
 
     posts.forEach(post => {
+        const dateTime = new Date(post.createdAt).toLocaleString();
+        const userLikes = likes.filter(like => like.post_id == post.post_id);
+        const userLiked = userLikes.some(like => like.user_id == user_id);
+        const userFavourites = favourites.filter(favourite => favourite.post_id == post.post_id)
+        const userFavourited = userFavourites.some(favourite => favourite.user_id == user_id)
+
+        mainElement.insertAdjacentHTML('afterbegin', `
+            <div class="border-slate-600 border rounded-xl mb-6">
+                <div class="lenta-user flex items-start gap-4 mt-5 px-6 py-4">
+                    <i class="fa-solid fa-user-tie text-5xl"></i>
+                    <div class="profile flex flex-col">
+                        <p class="text-3xl">${post.users.email}</p>
+                        <p class="text-slate-500">${dateTime}</p>
+                    </div>
+                    <i class="fa-solid fa-circle-check text-blue-400 text-3xl"></i>
+                </div>
+                <div class="lenta-body px-6 py-2 text-2xl">
+                    <p class="font-bold">${post.title}</p>
+                    <p>${post.text_post}</p>
+                </div>
+                <div class="users-stats flex items-center gap-4 p-5">
+                    <i class="fa-solid fa-heart cursor-pointer ${userLiked ? 'text-red-600 scale-110' : 'text-gray-400'} transition-all duration-300 ease-in-out hover:scale-125 active:scale-95" 
+                        onclick="likePost('${post.post_id}', '${user_id}')"
+                        data-post-id="${post.post_id}">
+                    </i>
+                    <span class="font-bold">${userLikes.length}</span>
+                    <i class="comments-count fa-solid fa-comment"></i><span data-comment="${post.post_id}">0</span>
+                    <i class="fa-solid fa-bookmark cursor-pointer ${userFavourited ? 'text-yellow-600 scale-110' : 'text-gray-400'} transition-all duration-300 ease-in-out hover:scale-125 active:scale-95"
+                        onclick="favoutritePost('${post.post_id}' , '${user_id}')"
+                        data-favourite-id="${post.post_id}">
+                    </i>
+                </div>
+                <div class="users-comment flex items-center p-5 gap-3">
+                    <input data-id="${post.post_id}" class="bg-white text-black w-full rounded-full p-3 placeholder:pl-1" placeholder="Комментарии..." type="text">
+                    <button type="button" onclick="createCommentt('${post.post_id}', '${user_id}', event)"
+                        class="bg-white hover:bg-gray-300 text-black rounded-full px-4 py-2 transition-all duration-300">
+                        Оставить комментарий
+                    </button>
+                </div>
+                <p class="font-bold text-2xl p-5">Комментарии</p>
+                <div class="comments" data-idcomment="${post.post_id}"></div>
+            </div>
+        `);
+    });
+
+    await renderComments();
+    window.scrollTo({ top: scrollPosition, behavior: 'smooth' })
+}
+
+async function renderFavoritePosts() {
+    const mainElement = document.querySelector('.main')
+    const scrollPosition = window.scrollY || document.documentElement.scrollTop
+
+    mainElement.innerHTML = ''
+    const posts = await getAllPosts()
+    const likes = await getAllLikes()
+    const favourites = await getAllFavourites()
+    const user_id = localStorage.getItem('user_id')
+    const favouritePosts = posts.filter(post => favourites.some(fav => fav.post_id == post.post_id && fav.user_id == user_id))
+
+    favouritePosts.forEach(post => {
         const dateTime = new Date(post.createdAt).toLocaleString();
         const userLikes = likes.filter(like => like.post_id == post.post_id);
         const userLiked = userLikes.some(like => like.user_id == user_id);
@@ -182,8 +257,9 @@ async function renderPosts() {
         `);
     });
 
-    await renderComments();
-    window.scrollTo({ top: scrollPosition, behavior: 'smooth' })
+    await renderComments()
+
+    window.scrollTo({ top: scrollPosition, behavior: 'instant' })
 }
 
 async function renderComments() {
