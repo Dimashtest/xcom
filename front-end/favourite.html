@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favourites</title>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link rel="icon" href="./img/svg/Frame.svg">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://kit.fontawesome.com/109388adc7.js" crossorigin="anonymous"></script>
+    <script src="favourite.js" defer></script>
+</head>
+<style>
+    @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,regular,500,600,700,800,300italic,italic,500italic,600italic,700italic,800italic);
+
+    * {
+        font-family: 'Open-Sans' sans-serif;
+    }
+
+    /*Убрать полосу прокрутки у элемента*/
+    .element::-webkit-scrollbar {
+        width: 0;
+    }
+
+    /*Убрать полосу прокрутки для всей страницы*/
+    ::-webkit-scrollbar {
+        width: 0;
+    }
+</style>
+<body class="bg-black text-white relative h-screen">
+    <div class="container flex items-start p-14 gap-4">
+        <header class="header basis-[20%] p-2 flex flex-col gap-5">
+            <div class="logo mb-4">
+                <img class="w-14" src="./img/svg/Frame.svg" alt="">
+            </div>
+            <nav>
+                <ul class="flex flex-col gap-3">
+                    <li class="flex items-center gap-3">
+                        <i class="fa-solid fa-house cursor-pointer text-2xl"></i>
+                        <span class="back-btn font-bold cursor-pointer text-xl">Назад на главную</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i class="fa-solid fa-envelope cursor-pointer text-2xl"></i>
+                        <span class="font-bold cursor-pointer text-xl">Сообщения</span>
+                    </li>
+                    <li class="flex items-center gap-3">
+                        <i class="fa-solid fa-bell cursor-pointer text-2xl"></i>
+                        <span class="font-bold cursor-pointer text-xl">Уведомления</span>
+                    </li>
+                </ul>
+            </nav>
+            <div class="profile text-white">
+
+            </div>
+        </header>
+        <section
+            class="main fixed top-20 left-90 right-40 h-[calc(100vh-80px)] overflow-y-auto p-2 gap-4 flex flex-col element">
+        </section>
+    </div>
+
+</body>
+</html>

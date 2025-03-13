@@ -1,65 +1,9 @@
-const postBtn = document.querySelector(".post-btn");
-const modal = document.querySelector(".modal-post");
-const closeBtn = document.querySelector(".close-modal");
 const user_id = localStorage.getItem("user_id")
-const login_btn = document.querySelector(".login-btn")
-const logout_btn = document.querySelector(".logout-btn")
-const favourite_btn = document.querySelector(".favourite-btn")
+const back_btn = document.querySelector(".back-btn")
 
-document.querySelector(".close-modal").addEventListener("click", () => {
-    document.querySelector(".modal-post").classList.add("hidden");
-});
-
-document.querySelector(".post-btn").addEventListener("click", () => {
-    const userId = localStorage.getItem('user_id')
-    if (!userId) {
-        Swal.fire({
-            title: "Вы должны быть залогинены, чтобы создать пост!",
-            text: `Ошибка`,
-            icon: "error"
-        })
-    }
-    document.querySelector(".modal-post").classList.remove("hidden")
-});
-
-document.addEventListener('click', (e) => {
-    if (!modal.contains(e.target) && !postBtn.contains(e.target)) {
-        modal.classList.add("hidden");
-    }
-
-});
-
-document.querySelector(".favourite-btn").addEventListener("click", () => {
-    window.location.href = './favourite.html'
+document.querySelector(".back-btn").addEventListener("click", () => {
+    window.location.href = './main.html'
 })
-
-document.querySelector('form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const title = document.querySelector('.title').value;
-    const text_post = document.querySelector('.text-post').value;
-    const user_id = localStorage.getItem('user_id');
-    await createPost(user_id, title, text_post);
-    modal.classList.add("hidden");
-    await renderAll()
-})
-
-async function createPost(user_id, title, text_post) {
-    try {
-        const response = await fetch('http://localhost:5000/api/postsRoutes/posts', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                user_id,
-                title,
-                text_post
-            })
-        })
-    } catch (error) {
-        console.log(error)
-    }
-}
 
 async function getAllPosts() {
     try {
@@ -70,6 +14,7 @@ async function getAllPosts() {
         console.log(error)
     }
 }
+
 async function likePost(post_id, user_id) {
     const response = await fetch(`http://localhost:5000/api/likesRoutes/likes`, {
         method: "POST",
@@ -80,7 +25,7 @@ async function likePost(post_id, user_id) {
     })
     const result = await response.json()
     console.log(result)
-    renderPosts()
+    renderFavoritePosts()
 }
 
 async function getAllFavourites() {
@@ -91,19 +36,6 @@ async function getAllFavourites() {
     } catch (error) {
         console.log(error)
     }
-}
-
-async function favoutritePost(post_id, user_id) {
-    const response = await fetch(`http://localhost:5000/api/favouritesRoutes/favourites`, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ post_id, user_id }),
-    })
-    const result = await response.json()
-    console.log(result)
-    renderPosts()
 }
 
 const renderProfile = () => {
@@ -121,20 +53,31 @@ const renderProfile = () => {
 }
 renderProfile()
 
-async function renderPosts() {
-    
-    const posts = await getAllPosts();
-    const likes = await getAllLikes();
-    const favourites = await getAllFavourites()
-    const user_id = localStorage.getItem('user_id');
+async function favoutritePost(post_id, user_id) {
+    const response = await fetch(`http://localhost:5000/api/favouritesRoutes/favourites`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ post_id, user_id }),
+    })
+    const result = await response.json()
+    console.log(result)
+    await renderFavouritePosts()
+}
 
+async function renderFavoritePosts() {
     const mainElement = document.querySelector('.main')
     const scrollPosition = window.scrollY || document.documentElement.scrollTop
 
     mainElement.innerHTML = ''
+    const posts = await getAllPosts()
+    const likes = await getAllLikes()
+    const favourites = await getAllFavourites()
+    const user_id = localStorage.getItem('user_id')
+    const favouritePosts = posts.filter(post => favourites.some(fav => fav.post_id == post.post_id && fav.user_id == user_id))
 
-
-    posts.forEach(post => {
+    favouritePosts.forEach(post => {
         const dateTime = new Date(post.createdAt).toLocaleString();
         const userLikes = likes.filter(like => like.post_id == post.post_id);
         const userLiked = userLikes.some(like => like.user_id == user_id);
@@ -182,8 +125,9 @@ async function renderPosts() {
         `);
     });
 
-    await renderComments();
-    window.scrollTo({ top: scrollPosition, behavior: 'smooth' })
+    await renderComments()
+
+    window.scrollTo({ top: scrollPosition, behavior: 'instant' })
 }
 
 async function renderComments() {
@@ -283,31 +227,9 @@ async function getAllLikes() {
     }
 }
 
-document.querySelector('.logout-btn').addEventListener('click', () => {
-    window.location.href = './index.html'
-    localStorage.removeItem('name_user')
-    localStorage.removeItem('email_user')
-    localStorage.removeItem('user_id')
-    document.location.reload()
-})
-
-document.querySelector('.login-btn').addEventListener('click', () => {
-    window.location.href = './index.html'
-})
-
-const name_user = localStorage.getItem('name_user')
-if (!name_user) {
-    document.querySelector('.logout-btn').style.display = 'none'
-    document.querySelector('.login-btn').style.display = 'block'
-}
-else {
-    document.querySelector('.logout-btn').style.display = 'block'
-    document.querySelector('.login-btn').style.display = 'none'
-}
-
-async function renderAll() {
-    await renderPosts()
+async function renderAll(post_id = null) {
     await renderComments()
     await getAllLikes()
+    await renderFavoritePosts()
 }
 renderAll()
