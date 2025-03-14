@@ -88,7 +88,11 @@ async function likePost(post_id, user_id) {
     })
     const result = await response.json()
     console.log(result)
-    renderPosts()
+    if (isFavoritesView) {
+        await renderFavoritePosts()
+    } else {
+        await renderAll()
+    }
 }
 
 async function getAllFavourites() {
@@ -143,7 +147,6 @@ async function renderPosts() {
     const user_id = localStorage.getItem('user_id');
 
     const mainElement = document.querySelector('.main')
-    const scrollPosition = window.scrollY || document.documentElement.scrollTop
 
     mainElement.innerHTML = ''
 
@@ -195,12 +198,11 @@ async function renderPosts() {
     });
 
     await renderComments();
-    window.scrollTo({ top: scrollPosition, behavior: 'smooth' })
+
 }
 
 async function renderFavoritePosts() {
     const mainElement = document.querySelector('.main')
-    const scrollPosition = window.scrollY || document.documentElement.scrollTop
 
     mainElement.innerHTML = ''
     const posts = await getAllPosts()
@@ -259,7 +261,7 @@ async function renderFavoritePosts() {
 
     await renderComments()
 
-    window.scrollTo({ top: scrollPosition, behavior: 'instant' })
+
 }
 
 async function renderComments() {
@@ -319,6 +321,7 @@ async function renderComments() {
 
         renderVisibleComments();
     });
+
 }
 
 
